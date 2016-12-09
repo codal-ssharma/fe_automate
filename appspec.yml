@@ -1,0 +1,30 @@
+version: 0.0
+os: linux
+# files:
+#   - source: /
+#     destination: /home/ubuntu/fe_codal_dashboard
+hooks:
+  # ApplicationStop - This deployment lifecycle event occurs even before
+  # the application revision is downloaded. You can use this event if you
+  # want to gracefully stop the application or remove currently installed
+  # packages in preparation of a deployment.
+
+  # BeforeInstall - You can use this deployment lifecycle event for preinstall
+  # tasks, such as decrypting files and creating a backup of the current
+  # version.
+  BeforeInstall:
+    - location: scripts/before_install_script.sh
+      timeout: 300
+      runas: ubuntu
+
+  # AfterInstall - You can use this deployment lifecycle event for tasks such
+  # as configuring your application or changing file permissions.
+  AfterInstall:
+    - location: scripts/after_install_script.sh
+      runas: ubuntu
+
+  # ApplicationStart - You typically use this deployment lifecycle event to
+  # restart services that were stopped during ApplicationStop.
+
+  # ValidateService - This is the last deployment lifecycle event.
+  # It is used to verify the deployment was completed successfully.
